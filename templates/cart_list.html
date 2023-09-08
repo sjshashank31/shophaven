@@ -1,0 +1,36 @@
+
+{% extends 'base.html' %}
+{% block content %}
+{% if object_list %}
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-uppercase header">item</th>
+                            <th scope="col" class="text-uppercase">Quantity</th>
+                            <th scope="col" class="text-uppercase">price each</th>
+                            <th scope="col" class="text-uppercase">total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for item in object_list %}
+                           <tr>
+                               <td> <img src="{{item.product.image.url}}" alt="item" width="100px" height="100px"> {{ item.product.name }}</td>
+                               <td>{{ item.quantity }}</td>
+                               <td>{{ item.product.price }} Rs.</td>
+                               <td> {{ item.total_price }} Rs.
+                               <a href="{% url 'remove-item-from-cart' item.id %}"><i class="fa fa-trash "></i></a></td>
+
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+{% else %}
+<h1> Your ShopHaven cart is Empty </h1><a href="{% url 'product-listing' %}">Continue shopping</a>
+{% endif %}
+{% endblock %}
+
